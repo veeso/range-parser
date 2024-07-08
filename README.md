@@ -5,6 +5,7 @@
 [![downloads](https://img.shields.io/crates/d/range-parser.svg)](https://crates.io/crates/range-parser)
 [![latest version](https://img.shields.io/crates/v/range-parser.svg)](https://crates.io/crates/range-parser)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+[![docs](https://docs.rs/range-parser/badge.svg)](https://docs.rs/range-parser)
 
 ---
 

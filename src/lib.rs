@@ -84,7 +84,9 @@ pub enum RangeError {
 /// Parse result
 pub type RangeResult<T> = Result<T, RangeError>;
 
-/// Parse a range string to a vector of usize
+/// Parse a range string to a vector of any kind of number
+///
+/// The type T must implement the `FromStr`, `Add`, `PartialEq`, `PartialOrd`, `Unit` and `Copy` traits.
 ///
 /// # Arguments
 /// - range_str: &str - the range string to parse
@@ -111,7 +113,9 @@ where
     parse_with(range_str, ",", "-")
 }
 
-/// Parse a range string to a vector of usize with custom separators
+/// Parse a range string to a vector of any kind of numbers with custom separators
+///
+/// The type T must implement the `FromStr`, `Add`, `PartialEq`, `PartialOrd`, `Unit` and `Copy` traits.
 ///
 /// # Arguments
 /// - range_str: &str - the range string to parse

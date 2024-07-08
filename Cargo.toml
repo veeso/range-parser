@@ -1,6 +1,6 @@
 [package]
 name = "range-parser"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Christian Visintin <christian.visintin@veeso.dev>"]
 edition = "2021"
 categories = ["algorithms", "command-line-interface", "parsing"]
