@@ -108,13 +108,7 @@ pub fn parse<T>(range_str: &str) -> RangeResult<Vec<T>>
 where
     T: FromStr + Add<Output = T> + PartialEq + PartialOrd + Unit + Copy,
 {
-    let mut range = Vec::new();
-
-    for part in range_str.split(',') {
-        parse_part(&mut range, part, "-")?;
-    }
-
-    Ok(range)
+    parse_with(range_str, ",", "-")
 }
 
 /// Parse a range string to a vector of usize with custom separators
