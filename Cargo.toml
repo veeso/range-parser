@@ -1,0 +1,24 @@
+[package]
+name = "range-parser"
+version = "0.1.0"
+authors = ["Christian Visintin <christian.visintin@veeso.dev>"]
+edition = "2021"
+categories = ["algorithms", "command-line-interface", "parsing"]
+description = "A rust library to parse ranges representation of any kind of numbers"
+homepage = "https://github.com/veeso/range-parser"
+include = ["src/**/*", "LICENSE", "README.md", "CHANGELOG.md"]
+keywords = ["range", "range-parser", "generic-range"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/veeso/range-parser"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "range_parser"
+path = "src/lib.rs"
+
+[dependencies]
+thiserror = "1"
+
+[dev-dependencies]
+pretty_assertions = "1"
