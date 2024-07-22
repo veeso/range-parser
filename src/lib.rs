@@ -68,6 +68,8 @@ use thiserror::Error;
 
 pub use self::unit::Unit;
 
+const AMBIGOUS_RANGE_SEPARATORS: &[&str] = &["--"];
+
 /// Parse error
 #[derive(Debug, Error, Clone, PartialEq, Eq)]
 pub enum RangeError {
@@ -79,6 +81,8 @@ pub enum RangeError {
     SeparatorsMustBeDifferent,
     #[error("Start of the range cannot be bigger than the end: {0}")]
     StartBiggerThanEnd(String),
+    #[error("Ambiguous separator: {0}")]
+    AmbiguousSeparator(String),
 }
 
 /// Parse result
@@ -122,8 +126,14 @@ where
 /// - value_separator: &str - the separator for single values
 /// - range_separator: &str - the separator for ranges
 ///
+///
 /// # Returns
 /// - Result<Vec<T>, RangeError> - the parsed range
+///
+/// # Ambiguous separators
+///
+/// The range separator cannot be the same as the value separator, and it cannot be one of the following: `--`,
+/// because it's ambiguous since it couldn't resolve negative numbers.
 ///
 /// # Example
 ///
@@ -141,6 +151,9 @@ where
 {
     if value_separator == range_separator {
         return Err(RangeError::SeparatorsMustBeDifferent);
+    }
+    if AMBIGOUS_RANGE_SEPARATORS.contains(&range_separator) {
+        return Err(RangeError::AmbiguousSeparator(range_separator.to_string()));
     }
 
     let mut range = Vec::new();
@@ -326,5 +339,10 @@ mod tests {
     #[test]
     fn test_should_fail_with_custom_separator_in_place_of_minus() {
         assert!(parse_with::<i32>("~1~3", "=", "~").is_err());
+    }
+
+    #[test]
+    fn test_should_not_allow_ambiguous_separator() {
+        assert!(parse_with::<i32>("1--3", "-", "--").is_err());
     }
 }

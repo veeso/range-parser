@@ -12,6 +12,7 @@
 Released on 22/07/2024
 
 - [Issue 4](https://github.com/veeso/range-parser/issues/4): parser takes `range_separator` as minus.
+- [Issue 3](https://github.com/veeso/range-parser/issues/3): don't allow ambiguous range separator (i.e. `--`)
 
 ## 0.1.1
 
