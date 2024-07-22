@@ -119,8 +119,8 @@ where
 ///
 /// # Arguments
 /// - range_str: &str - the range string to parse
-/// - value_separator: char - the separator for single values
-/// - range_separator: char - the separator for ranges
+/// - value_separator: &str - the separator for single values
+/// - range_separator: &str - the separator for ranges
 ///
 /// # Returns
 /// - Result<Vec<T>, RangeError> - the parsed range
