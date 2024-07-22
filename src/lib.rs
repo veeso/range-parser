@@ -180,14 +180,14 @@ where
     // or `-5--3` which is also a valid range. So we need to find a way to tell what is dividing the range exactly
     // so let's calculate the first part index
     let (start, end): (T, T) = match parts.len() {
-        2 if parts[0].is_empty() => {
+        2 if parts[0].is_empty() && range_separator == "-" => {
             // if the first part is empty, it means it's a negative number
             let end = format!("-{}", parts[1]);
             let end: T = parse_as_t(&end)?;
             acc.push(end);
             return Ok(());
         }
-        // 2 positive numbers
+        // 2 positive numbers (or also negative if range_separator is not `-`)
         2 => {
             let start = parts[0];
             let end = parts[1];
@@ -197,7 +197,7 @@ where
         }
         // 3 is tricky, because it could be both `-1-2` or `1--3`, but the second case is invalid actually,
         // because start cannot be greater than end
-        3 if parts[0].is_empty() => {
+        3 if parts[0].is_empty() && range_separator == "-" => {
             let start = format!("-{}", parts[1]);
             let end = parts[2];
             let start: T = parse_as_t(&start)?;
@@ -205,7 +205,7 @@ where
             (start, end)
         }
         3 => return Err(RangeError::StartBiggerThanEnd(part.to_string())),
-        4 => {
+        4 if range_separator == "-" => {
             let start = format!("-{}", parts[1]);
             let end = format!("-{}", parts[3]);
             let start: T = parse_as_t(&start)?;
@@ -321,5 +321,10 @@ mod tests {
     fn test_should_not_allow_start_bigger_than_end() {
         let range = parse::<i32>("3-1");
         assert!(range.is_err());
+    }
+
+    #[test]
+    fn test_should_fail_with_custom_separator_in_place_of_minus() {
+        assert!(parse_with::<i32>("~1~3", "=", "~").is_err());
     }
 }
