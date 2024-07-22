@@ -9,7 +9,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! range-parser = "0.1.0"
+//! range-parser = "0.1.2"
 //! ```
 //!
 //! Then parse a range from a string:
